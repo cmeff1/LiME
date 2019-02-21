@@ -42,9 +42,21 @@ extern int write_vaddr_disk(void *, size_t);
 extern int setup_disk(void);
 extern void cleanup_disk(void);
 
-extern int ldigest_init(void);
+/*===============================================================*/
+//These functions seem to present warnings and challenges during
+//compilation. Feel free to uncomment them to see if it works 
+//for you. They handle hashing of the memory dump. I didnt
+//have time to trouble shoot why this causes issues. I'm 
+//guessing its something simple. I just needed to dump memory
+//so I just simply commented out the hashing calls. It 
+//is an optional flag so the tool still dumps memory fine
+//just doesnt hash.
+//-Chris
+
+/*extern int ldigest_init(void);
 extern int ldigest_update(void *, size_t);
-extern int ldigest_final(void);
+extern int ldigest_final(void);*/
+/*==============================================================*/
 
 static char * format = 0;
 static int mode = 0;
@@ -133,8 +145,8 @@ static int init() {
         return err;
     }
 
-    if(compute_digest == LIME_DIGEST_COMPUTE)
-        compute_digest = ldigest_init();
+    //if(compute_digest == LIME_DIGEST_COMPUTE)
+    //    compute_digest = ldigest_init();
 
     for (p = iomem_resource.child; p ; p = p->sibling) {
 
@@ -158,8 +170,8 @@ static int init() {
 
     cleanup();
 
-    if(compute_digest == LIME_DIGEST_COMPUTE)
-        compute_digest = ldigest_final();
+    //if(compute_digest == LIME_DIGEST_COMPUTE)
+    //    compute_digest = ldigest_final();
 
     return err;
 }
@@ -271,8 +283,8 @@ static void write_range(struct resource * res) {
 }
 
 ssize_t write_vaddr(void * v, size_t is) {
-    if(compute_digest == LIME_DIGEST_COMPUTE)
-        compute_digest = ldigest_update(v, is);
+    //if(compute_digest == LIME_DIGEST_COMPUTE)
+    //    compute_digest = ldigest_update(v, is);
 
     return RETRY_IF_INTURRUPTED(
         (method == LIME_METHOD_TCP) ? write_vaddr_tcp(v, is) : write_vaddr_disk(v, is)
