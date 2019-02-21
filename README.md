@@ -1,3 +1,14 @@
+#Update:
+When attempting to compile lime ran into some warning messages related to the hashing functions. In main.c there are some declearations of functions that get used in some if else
+statments in the main.c. If you look at the options to run lime there is an optional flag for turning on hashing when run. The code I commented out disables this functionality so 
+if you try to enable this flag it will not work. However, the code is simply commented out feel free to uncomment it, it might work for you. I will eventually spend some time seeing why i was getting issues with this. I just needed to dump some memory for a project so it was a bit quicker to just comment out the trouble some code. It does not cause any issues with the memory dumping functionality. Feel free to email me if you have any questions I can at least tell you what I ran into and how I over came them. 
+
+
+
+
+
+
+
 # LiME ~ Linux Memory Extractor
 A Loadable Kernel Module (LKM) which allows for volatile memory acquisition from Linux and Linux-based devices, such as Android. This makes LiME unique as it is the first tool that allows for full memory captures on Android devices. It also minimizes its interaction between user and kernel space processes during acquisition, which allows it to produce memory captures that are more forensically sound than those of other tools designed for Linux memory acquisition.
 
